@@ -1,18 +1,24 @@
 /** @type {import("snowpack").SnowpackUserConfig } */
 export default {
   mount: {
-    /* ... */
+    // directory name: 'build directory'
+    public: "/",
+    src: "/dist",
   },
-  plugins: [
-    /* ... */
-  ],
+  alias: {
+    "@app": "./src",
+  },
+  plugins: ["@snowpack/plugin-typescript"],
   routes: [
     /* Enable an SPA Fallback in development: */
     // {"match": "routes", "src": ".*", "dest": "/index.html"},
   ],
   optimize: {
-    /* Example: Bundle your final build: */
-    // "bundle": true,
+    bundle: true,
+    minify: true,
+    target: "es2015",
+    treeshake: true,
+    splitting: true,
   },
   packageOptions: {
     /* ... */
