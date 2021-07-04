@@ -97,6 +97,7 @@ const FormAddress: React.FC<Props> = (props) => {
     >
       <>
         <TextField
+          type="text"
           className={classes.input}
           label="Street"
           placeholder="18th Dev Avenue"
@@ -107,6 +108,7 @@ const FormAddress: React.FC<Props> = (props) => {
           id="street"
         />
         <TextField
+          type="text"
           className={classes.input}
           label="City"
           placeholder="South Dev City"
@@ -117,6 +119,7 @@ const FormAddress: React.FC<Props> = (props) => {
           id="city"
         />
         <TextField
+          type="text"
           className={classes.input}
           label="Code"
           placeholder="25-898"
@@ -127,6 +130,7 @@ const FormAddress: React.FC<Props> = (props) => {
           id="code"
         />
         <TextField
+          type="text"
           className={classes.input}
           label="Country"
           placeholder="Devland"

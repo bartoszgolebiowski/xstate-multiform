@@ -101,6 +101,7 @@ const FormPayment: React.FC<Props> = (props) => {
     >
       <>
         <TextField
+          type="text"
           className={classes.input}
           label="Account number"
           placeholder="E.g. DE12 1234 1234 1234 1234 44"
@@ -111,6 +112,7 @@ const FormPayment: React.FC<Props> = (props) => {
           id="account"
         />
         <TextField
+          type="text"
           className={classes.input}
           label="Credit card number"
           placeholder="1234 4567 7890 4565 2344"
@@ -126,6 +128,7 @@ const FormPayment: React.FC<Props> = (props) => {
         />
 
         <TextField
+          type="text"
           className={classes.input}
           label="Credit card expiration date"
           placeholder="E.g. 12/22"
@@ -140,6 +143,7 @@ const FormPayment: React.FC<Props> = (props) => {
           id="creditCardExp"
         />
         <TextField
+          type="text"
           className={classes.input}
           label="CVV"
           placeholder="CVV"

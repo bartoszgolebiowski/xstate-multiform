@@ -1,3 +1,6 @@
+/// <reference types="cypress" />
+/// <reference types="@testing-library/cypress" />
+
 import { assign, Machine } from "xstate";
 import { getUser } from "../../services/user";
 import updateMachine from "./updateMachine";
@@ -30,53 +33,12 @@ const userDataMachine = Machine<
             userData: (_, { userData }) => userData,
           }),
         },
-        [UserDataEvents.ADDRESS]: {
-          target: UserDataStates.address,
-          actions: assign({
-            userData: (_, { userData }) => userData,
-          }),
-        },
-        [UserDataEvents.PAYMENT]: {
-          target: UserDataStates.payment,
-          actions: assign({
-            userData: (_, { userData }) => userData,
-          }),
-        },
       },
       invoke: {
         src: (_) => async (cb) => {
           try {
             const userData = await getUser();
-
-            const {
-              name,
-              surname,
-              email,
-              phone,
-              street,
-              city,
-              code,
-              country,
-              account,
-              creaditCardNo,
-              creditCardExp,
-              creditCardCvv,
-            } = userData;
-
-            switch (null) {
-              case name && surname && email && phone:
-                cb({ type: UserDataEvents.BASIC, userData });
-                break;
-              case street && city && code && country:
-                cb({ type: UserDataEvents.ADDRESS, userData });
-                break;
-              case account && creaditCardNo && creditCardExp && creditCardCvv:
-                cb({ type: UserDataEvents.PAYMENT, userData });
-                break;
-              default:
-                cb({ type: UserDataEvents.BASIC, userData });
-                break;
-            }
+            cb({ type: UserDataEvents.BASIC, userData });
           } catch (e) {
             console.log(e.message);
           }
@@ -89,6 +51,14 @@ const userDataMachine = Machine<
           target: UserDataStates.address,
         },
       },
+      meta: {
+        test: async () => {
+          cy.get("#name").should("exist");
+          cy.get("#surname").should("exist");
+          cy.get("#email").should("exist");
+          cy.get("#phone").should("exist");
+        },
+      },
       invoke: {
         id: "FormName",
         src: updateMachine,
@@ -96,7 +66,12 @@ const userDataMachine = Machine<
         onDone: {
           target: UserDataStates.address,
           actions: assign({
-            userData: (_, { data }) => data?.userData ?? null,
+            userData: (_, { data }) => {
+              if (data && data.userData) {
+                return data.userData;
+              }
+              return null;
+            },
           }),
         },
       },
@@ -110,6 +85,14 @@ const userDataMachine = Machine<
           target: UserDataStates.basic,
         },
       },
+      meta: {
+        test: async () => {
+          cy.get("#street").should("exist");
+          cy.get("#city").should("exist");
+          cy.get("#code").should("exist");
+          cy.get("#country").should("exist");
+        },
+      },
       invoke: {
         id: "FormAddress",
         src: updateMachine,
@@ -117,7 +100,12 @@ const userDataMachine = Machine<
         onDone: {
           target: UserDataStates.payment,
           actions: assign({
-            userData: (_, { data }) => data?.userData ?? null,
+            userData: (_, { data }) => {
+              if (data && data.userData) {
+                return data.userData;
+              }
+              return null;
+            },
           }),
         },
       },
@@ -131,6 +119,14 @@ const userDataMachine = Machine<
           target: UserDataStates.address,
         },
       },
+      meta: {
+        test: async () => {
+          cy.get("#account").should("exist");
+          cy.get("#creaditCardNo").should("exist");
+          cy.get("#creditCardExp").should("exist");
+          cy.get("#creditCardCvv").should("exist");
+        },
+      },
       invoke: {
         id: "FormPayment",
         src: updateMachine,
@@ -138,7 +134,12 @@ const userDataMachine = Machine<
         onDone: {
           target: UserDataStates.complete,
           actions: assign({
-            userData: (_, { data }) => data?.userData ?? null,
+            userData: (_, { data }) => {
+              if (data && data.userData) {
+                return data.userData;
+              }
+              return null;
+            },
           }),
         },
       },
@@ -147,6 +148,11 @@ const userDataMachine = Machine<
       on: {
         [UserDataEvents.BACK]: {
           target: UserDataStates.payment,
+        },
+      },
+      meta: {
+        test: async () => {
+          cy.contains(/success screen/i).should("exist");
         },
       },
     },

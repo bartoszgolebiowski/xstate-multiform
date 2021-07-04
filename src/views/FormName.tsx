@@ -94,6 +94,7 @@ const FormName: React.FC<Props> = (props) => {
     >
       <>
         <TextField
+          type="text"
           className={classes.input}
           label="First name"
           placeholder="John"
@@ -104,6 +105,7 @@ const FormName: React.FC<Props> = (props) => {
           id="name"
         />
         <TextField
+          type="text"
           className={classes.input}
           label="Last name"
           placeholder="Doe"
@@ -114,6 +116,7 @@ const FormName: React.FC<Props> = (props) => {
           id="surname"
         />
         <TextField
+          type="text"
           className={classes.input}
           label="E-mail"
           placeholder="mail@mail.com"
@@ -124,6 +127,7 @@ const FormName: React.FC<Props> = (props) => {
           id="email"
         />
         <TextField
+          type="text"
           className={classes.input}
           label="Phone"
           placeholder="123 123 123"
