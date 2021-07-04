@@ -66,11 +66,11 @@ const userDataMachine = Machine<
         onDone: {
           target: UserDataStates.address,
           actions: assign({
-            userData: (_, { data }) => {
+            userData: (ctx, { data }) => {
               if (data && data.userData) {
                 return data.userData;
               }
-              return null;
+              return ctx.userData;
             },
           }),
         },
@@ -100,11 +100,11 @@ const userDataMachine = Machine<
         onDone: {
           target: UserDataStates.payment,
           actions: assign({
-            userData: (_, { data }) => {
+            userData: (ctx, { data }) => {
               if (data && data.userData) {
                 return data.userData;
               }
-              return null;
+              return ctx.userData;
             },
           }),
         },
@@ -134,11 +134,11 @@ const userDataMachine = Machine<
         onDone: {
           target: UserDataStates.complete,
           actions: assign({
-            userData: (_, { data }) => {
+            userData: (ctx, { data }) => {
               if (data && data.userData) {
                 return data.userData;
               }
-              return null;
+              return ctx.userData;
             },
           }),
         },
